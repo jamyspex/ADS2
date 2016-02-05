@@ -17,42 +17,63 @@ public class QueueSort<E extends Comparable<E>> {
 
     private ArrayQueue<E> merge(ArrayQueue<E> q1,ArrayQueue<E> q2) throws ArrayQueueException {
         
+        // create new ArrayQueue large enough to hold the two arguments
        ArrayQueue<E> merged = new ArrayQueue<E>(q1.size()+q2.size());
       
+        // loop until both input ArrayQueues are empty
        while(!q1.isEmpty() || !q2.isEmpty())
        {
+            // try-catch block to catch any ArrayQueueExceptions caused
+            // by input queues having different lengths 
             try{
 
+                // compare the element at the front of each queue to see
+                // which should be added to the merged ArrayQueue first
                 if(q1.front().compareTo(q2.front()) <= 0) merged.enqueue(q1.dequeue());
                 
                 else merged.enqueue(q2.dequeue());
             }
+            // Catch any ArrayQueueException from calling dequeue on an empty ArrayQueue 
             catch(ArrayQueueException ex)
             {
-               
+                // If q1 is empty add the first element from q2 to merged
                 if(q1.isEmpty()) merged.enqueue(q2.dequeue());
                 
-                else merged.enqueue(q1.dequeue());
+                // If q2 is empty add the first element from q1 to merged
+                else if(q2.isEmpty()) merged.enqueue(q1.dequeue());
+
+                // other wise throw exception as it is unrecoverable 
+                else throw ex;
                   
             }            
        }
+
        return merged;
 	}
 
     public void sort(){
         
-        if(Q.size()==1) return;
+        // loop until Q only contains one element e.g all merges have
+        // been preformed. 
+        while(Q.size() != 1){
 
-        Q.enqueue(merge(Q.dequeue(), Q.dequeue()));
+            // dequeue the first two elements from Q and merge them to 
+            // form one sorted ArrayQueue and then enqueue the sorted 
+            // queue back onto Q
+            Q.enqueue(merge(Q.dequeue(), Q.dequeue()));
 
-        sort();
+        }
     }
 
     public void add(E element){
+
+        // Create an ArrayQueue of size 1 to hold element
         ArrayQueue<E> temp = new ArrayQueue<E>(1);
 
+        // enqueue element in the temp queue
         temp.enqueue(element);
 
+        // enqueue the temp queue on Q
         Q.enqueue(temp);
     }
     
