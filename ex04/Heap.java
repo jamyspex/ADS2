@@ -59,17 +59,17 @@ public class Heap <E extends Comparable<E>> {
         // increment last and insert e
         last++;
         H[last] = e;
-        
+       
 
         // preform up heap bubble to restore heap property after insertion
         int index = last;
         int parent;
         
-        while(index > 0)
+        while(index > 1)
         {
             // System.out.println("start of up heap bubble");
             // get parent index from current index
-            parent = (index)/2 > 1 ? (index)/2 : 1;
+            parent = index/2;
             // System.out.println("index)/2: " + ((index )/2));
             // System.out.println("last: " + last);
             // System.out.println("parent: " + parent);
