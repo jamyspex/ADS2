@@ -42,7 +42,7 @@ public class Heap <E extends Comparable<E>> {
     
     @SuppressWarnings("unchecked")
     public E min() throws HeapException {
-	if (isEmpty()) throw new HeapException("underflow");
+	if (isEmpty()) throw new HeapException("Heap Underflow");
 	return (E) H[1];
     }
     //
@@ -54,7 +54,7 @@ public class Heap <E extends Comparable<E>> {
     public void insert(E e) throws HeapException {
         
         // check heap is not full
-        if(last + 1 > capacity) throw new HeapException("Heap overflow");
+        if(last + 1 > capacity) throw new HeapException("Heap Overflow");
 
         // increment last and insert e
         last++;
@@ -77,10 +77,10 @@ public class Heap <E extends Comparable<E>> {
 
             // if heap property is true end bubbling
             if(compare(H[index], H[parent]) >= 0) 
-                {
-                    // System.out.println("heap property restored");
-                    return;
-                }
+            {
+                // System.out.println("heap property restored");
+                return;
+            }
             
             // otherwise swap parent and child and continue up the heap
             swap(index, parent);
@@ -105,7 +105,7 @@ public class Heap <E extends Comparable<E>> {
     public E removeMin() throws HeapException {
 
         // ensure heap isn't empty, if it is throw exception
-        if(last == 0) throw new HeapException("underflow");
+        if(last == 0) throw new HeapException("Heap Underflow");
 
         // assign minimum element to temp var
         E min = (E) H[1];
@@ -132,7 +132,7 @@ public class Heap <E extends Comparable<E>> {
             // System.out.println("index: " + index);
 
             // if child >= size break as we have reached bottom of heap
-            if(child >= last) break;
+            if(child > last) break;
 
             // if right child exists check which child is larger
             if(child + 1 < last)
