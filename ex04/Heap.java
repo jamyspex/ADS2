@@ -67,20 +67,11 @@ public class Heap <E extends Comparable<E>> {
         
         while(index > 1)
         {
-            // System.out.println("start of up heap bubble");
             // get parent index from current index
             parent = index/2;
-            // System.out.println("index)/2: " + ((index )/2));
-            // System.out.println("last: " + last);
-            // System.out.println("parent: " + parent);
-            // System.out.println("index: " + index);
 
             // if heap property is true end bubbling
-            if(compare(H[index], H[parent]) >= 0) 
-            {
-                // System.out.println("heap property restored");
-                return;
-            }
+            if(compare(H[index], H[parent]) > 0) return;
             
             // otherwise swap parent and child and continue up the heap
             swap(index, parent);
@@ -114,7 +105,7 @@ public class Heap <E extends Comparable<E>> {
         H[1] = H[last];
         H[last] = null;
         last--;
-        // System.out.println("before bubble: " + toString());
+
         // Preform down heap bubble to restore heap property
 
         // initialize index vars
@@ -127,30 +118,20 @@ public class Heap <E extends Comparable<E>> {
             // get child index from intial index
             child = index * 2;
 
-            // System.out.println("child: " + child);
-            // System.out.println("last: " + last);
-            // System.out.println("index: " + index);
-
             // if child >= size break as we have reached bottom of heap
             if(child > last) break;
 
             // if right child exists check which child is larger
-            if(child + 1 < last)
+            if(child + 1 <= last)
             {
                 // if right child is larger than left child increment child index
                 // this ensures heap property check is accurate
-                if(compare(H[child], H[child + 1]) > 0) {
-                    // System.out.println("switching to right child");
-                    child++;
-                }
+                if(compare(H[child], H[child + 1]) > 0) child++;
             }
-
+            
             // if heap property is restored break
-            if(compare(H[index], H[child]) <= 0) {
-                // System.out.println("heap restored: " + toString());
-                // System.out.println("heap property restored");
-                break;
-            }
+            if(compare(H[index], H[child]) < 0) break;
+            
 
             // otherwise swap parent and child and move down the heap
             swap(index, child);
