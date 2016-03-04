@@ -118,7 +118,7 @@ public class Heap <E extends Comparable<E>> {
             // get child index from intial index
             child = index * 2;
 
-            // if child >= size break as we have reached bottom of heap
+            // if child > size break as we have reached bottom of heap
             if(child > last) break;
 
             // if right child exists check which child is larger
@@ -139,6 +139,7 @@ public class Heap <E extends Comparable<E>> {
 
         }
 
+        // return the root of the heap (smallest element)
 	   return min;
     }
     //
@@ -150,14 +151,19 @@ public class Heap <E extends Comparable<E>> {
 
     public String toString(){
 
+        // initialize output 
         String output = "[";
 
+        // loop over entire heap
         for(int i = 1; i <= last; i++)
         {
+            // if its the last element append value but not comma
+            // other wise append value and comma
             if(i == last) output = output + H[i].toString();
             else output = output + H[i].toString() + ",";
         }
 	   
+       // append closing bracket and return string
        return output + "]";
     }
     //
